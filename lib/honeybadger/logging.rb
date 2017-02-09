@@ -79,6 +79,10 @@ module Honeybadger
 
     class StandardLogger < Base
       def initialize(logger = Logger.new('/dev/null'))
+        # TODO: better solution would be to override this
+        # via a railtie patch, or else patch log4jruby logger
+        # to support #add.
+        logger = Logger.new('/dev/null')
         raise ArgumentError, 'logger not specified' unless logger
         raise ArgumentError, 'logger must be a logger' unless logger.respond_to?(:add)
 
